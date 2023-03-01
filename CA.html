@@ -1,0 +1,113 @@
+<!DOCTYPE html>-+
+<html>
+  <head>
+    <style>
+      #table {
+        background-color: black;
+        color: blue;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      #table td, #table th {
+    border: 1px solid blue;
+    padding: 8px;
+  }
+
+  #table th {
+    background-color:blue;
+    color: white;
+    text-align: left;
+  }
+</style>
+</head>
+<body style="background-color: black;">
+  <h1 style="color: blue;">MATIKO'S CASH ACCOUNT CALCULATOR</h1>
+  <table id="table">
+    <thead>
+      <tr>
+        <th>DEBIT</th>
+        <th></th>
+        <th></th>
+        <th></th>
+        <th>CREDIT</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+      <tr>
+        <th>PARTICULAR</th>
+        <th>DATE</th>
+        <th>FOLIO</th>
+        <th>AMOUNT</th>
+        <th>PARTICULAR</th>
+        <th>DATE</th>
+        <th>FOLIO</th>
+        <th>AMOUNT</th>
+      </tr>
+    </thead>
+    <tbody id="table-body">
+      <tr>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+        <td><input type="text"></td>
+      </tr>
+    </tbody>
+  </table>
+
+<script>
+function ADD_ROW() {
+  var tableBody = document.getElementById("table-body");
+
+  var newRow = tableBody.insertRow();
+
+  for (var i = 0; i < 8; i++) {
+    var newCell = newRow.insertCell(i);
+    newCell.innerHTML = "<input type='text'>";
+  }
+}
+</script>
+<br>
+<button onclick="ADD_ROW()">ADD ROW</button>
+
+<button onclick="clearTable()">CLEAR</button>
+
+<script>
+  function clearTable() {
+    var inputs = document.querySelectorAll("#table-body input");
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].value = "";
+    }
+  }
+</script>
+  <button onclick="checkBalance()">CHECK BALANCE</button>
+
+  <script>
+    function checkBalance() {
+      var inputs = document.querySelectorAll("#table-body input");
+      var debitTotal = 0;
+      var creditTotal = 0;
+      var balance;
+  
+      for (var i = 0; i < inputs.length; i++) {
+        if (i % 8 < 4) {
+          debitTotal += parseInt(inputs[i].value) || 0;
+        } else {
+          creditTotal += parseInt(inputs[i].value) || 0;
+        }
+      }
+  
+      document.getElementById("debit-total").innerHTML = "DEBIT = " + debitTotal;
+      document.getElementById("credit-total").innerHTML = "CREDIT = " + creditTotal;
+      balance = debitTotal - creditTotal;
+      document.getElementById("balance").innerHTML = "BALANCE = " + balance;
+    }
+  </script>
+  <div id="debit-total" style="color: blue;"></div>
+  <div id="credit-total" style="color: blue;"></div>
+  <div id="balance" style="color: blue;"></div>
